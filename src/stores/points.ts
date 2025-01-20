@@ -174,7 +174,7 @@ export const useGameStore = defineStore('points', () => {
         },
       ],
     },
-  ].slice(0, 1)); // Limit to one site for now
+  ].slice(0, 6)); // Limit to one site for now
 
   function increment() {
     points.value++
