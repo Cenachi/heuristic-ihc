@@ -4,11 +4,11 @@ import { ref, watchEffect } from 'vue';
 
 const store = useGameStore(); // Game Data
 const open = ref(false);
-const time = ref(10);
+const time = ref(60);
 let interval: ReturnType<typeof setInterval>;
 
 function resetTimer() {
-  time.value = 10;
+  time.value = 60;
   clearInterval(interval);
   startTime();
 }
@@ -43,7 +43,7 @@ function startTime() {
       if (time.value === 0) {
         store.answer('');
         open.value = false;
-        time.value = 10;
+        time.value = 60;
       }
     }
   }, 1000);
@@ -82,9 +82,10 @@ startTime();
           </div>
         </template>
 
+
         <!-- Exibe a pergunta apenas para o site correspondente -->
         <template v-else>
-          <div class="bg-black bg-opacity-20 p-4 mt-2 rounded-lg w-full max-w-sm"
+          <div class="bg-black bg-opacity-20 p-4 mt-2 rounded-lg w-full "
             v-if="store.randomSiteName && store.randomProblem">
             <div class="font-bold mb-2 text-center text-white">
               Qual é a heurística para este problema?

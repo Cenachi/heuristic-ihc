@@ -14,16 +14,16 @@ export type Problem = {
 };
 
 const heuristics = [
-  "visibility",
-  "match",
-  "userControl",
-  "consistency",
-  "errorPrevention",
-  "recognition",
-  "flexibility",
-  "aesthetic",
-  "help",
-  "documentation",
+  "Visibilidade do status do sistema",
+  "Compatibilidade entre o sistema e o mundo real",
+  "Controle e liberdade do usuário",
+  "Consistência e padrões",
+  "Prevenção de erros",
+  "Reconhecimento em vez de memorização",
+  "Flexibilidade e eficiência de uso",
+  "Estética e design minimalista",
+  "Ajuda para reconhecer, diagnosticar e recuperar de erros",
+  "Ajuda e documentação",
 ];
 
 export const useGameStore = defineStore('points', () => {
@@ -33,148 +33,154 @@ export const useGameStore = defineStore('points', () => {
   const randomProblem = ref<Problem | null>(null);
   const selectedProblems = new Set<Problem>(); // to avoid repeating problems
   const finalScore = ref(0);
-  
+
 
   const sites = ref([
     {
-      name: 'Google',
+      name: 'Yahoo',
+      icon: '',
       problems: [
         {
           id: 1,
           description:
-            'The Google search website doesn’t provide clear documentation on how to use shortcuts like quotes for precise searches.',
-          answer: 'documentation',
+            'Design desatualizado. Um design ultrapassado dificulta o reconhecimento rápido de elementos familiares.',
+          answer: 'Reconhecimento em vez de memorização',
         },
         {
           id: 2,
           description:
-            "When searching for common errors, Google doesn't differentiate between developer-oriented and user-oriented solutions, causing confusion.",
-          answer: 'match',
+            'Navegação confusa. O design da navegação restringe a liberdade e dificulta o retorno às páginas desejadas.',
+          answer: 'Controle e liberdade do usuário',
         },
         {
           id: 3,
           description:
-            "The search bar suggestions aren't visible immediately after typing a query, making the system status unclear.",
-          answer: 'visibility',
+            'Conteúdo desatualizado. Informações antigas quebram a expectativa de encontrar conteúdos relevantes e atuais.',
+          answer: 'Compatibilidade entre o sistema e o mundo real',
         },
       ],
     },
     {
-      name: 'Amazon',
+      name: 'Americanas',
+      icon: '',
       problems: [
         {
           id: 4,
           description:
-            'Product categories are sometimes inconsistent with user expectations, leading to confusion.',
-          answer: 'consistency',
+            'Tempo de carregamento lento. A ausência de feedback adequado durante o carregamento aumenta a frustração.',
+          answer: 'Visibilidade do status do sistema',
         },
         {
           id: 5,
           description:
-            'The checkout page doesn’t provide a clear way to undo or modify an order, limiting user control.',
-          answer: 'userControl',
+            'Busca ineficiente. O sistema não auxilia o usuário a encontrar informações ou corrigir erros de busca.',
+          answer: 'Ajuda para reconhecimento, diagnóstico e recuperação de erros',
         },
         {
           id: 6,
           description:
-            'Search results often show unrelated products due to lack of error prevention in filtering options.',
-          answer: 'errorPrevention',
+            'Layout poluído. Excesso de elementos visuais compromete a clareza e dificulta a navegação.',
+          answer: 'Estética e design minimalista',
         },
       ],
     },
     {
-      name: 'YouTube',
+      name: 'Globo.com',
+      icon: '',
       problems: [
         {
           id: 7,
           description:
-            'The autoplay feature is not easily visible to users, leading to confusion when videos play automatically.',
-          answer: 'visibility',
+            'Rodapé extenso e desorganizado. Elementos excessivos e desnecessários no rodapé interferem na simplicidade e clareza.',
+          answer: 'Estética e design minimalista',
         },
         {
           id: 8,
           description:
-            'Video categories sometimes mix unrelated content, making it hard for users to find what they’re looking for.',
-          answer: 'consistency',
+            'Falta de categorização eficiente. Usuários precisam lembrar onde está a informação em vez de encontrá-la facilmente.',
+          answer: 'Reconhecimento em vez de memorização',
         },
         {
           id: 9,
           description:
-            'The settings menu uses jargon unfamiliar to average users, reducing ease of understanding.',
-          answer: 'match',
+            'Largura inconsistente das colunas. A inconsistência quebra padrões visuais e prejudica a previsibilidade do sistema.',
+          answer: 'Consistência e padrões',
         },
       ],
     },
     {
-      name: 'Facebook',
+      name: 'UOL',
+      icon: '',
       problems: [
         {
           id: 10,
           description:
-            'Privacy settings are hidden deep in the menu, making it difficult for users to recognize and change them.',
-          answer: 'recognition',
+            'Navegação confusa ao rolar a página. Usuários perdem a noção de onde estão no site durante a navegação.',
+          answer: 'Visibilidade do status do sistema',
         },
         {
           id: 11,
           description:
-            'Friend suggestions clutter the interface, reducing aesthetic and minimalist design.',
-          answer: 'aesthetic',
+            'Menu não fixo. A ausência de um menu fixo limita o retorno fácil às seções principais.',
+          answer: 'Controle e liberdade do usuário',
         },
         {
           id: 12,
           description:
-            'The help center provides lengthy articles but lacks concise instructions for common issues.',
-          answer: 'documentation',
+            'Ausência de botão para retornar ao topo. O sistema não fornece uma funcionalidade simples para ajudar o usuário na navegação.',
+          answer: 'Ajuda e documentação',
         },
       ],
     },
     {
-      name: 'Netflix',
+      name: 'Istoé',
+      icon: '',
       problems: [
         {
           id: 13,
           description:
-            "The 'Continue Watching' section doesn’t allow users to easily remove items, reducing user control.",
-          answer: 'userControl',
+            'Excesso de publicidade. Anúncios excessivos poluem o layout e desviam a atenção do conteúdo principal.',
+          answer: 'Estética e design minimalista',
         },
         {
           id: 14,
           description:
-            'Titles in non-native languages often don’t have translated descriptions, mismatching user expectations.',
-          answer: 'match',
+            'Anúncios sobrepostos. Anúncios sobrepostos podem levar a cliques acidentais e frustração.',
+          answer: 'Prevenção de erros',
         },
         {
           id: 15,
           description:
-            'Errors while streaming only show cryptic codes, making it hard for users to diagnose the problem.',
-          answer: 'help',
+            'Experiência negativa em dispositivos móveis. Interfaces não responsivas dificultam o uso eficiente por diferentes perfis de usuários.',
+          answer: 'Flexibilidade e eficiência de uso',
         },
       ],
     },
     {
-      name: 'Twitter',
+      name: 'Terra',
+      icon: '',
       problems: [
         {
           id: 16,
           description:
-            'The character counter is not prominently visible when composing a tweet, reducing visibility of system status.',
-          answer: 'visibility',
+            'Menu que desaparece ao rolar a página. A ausência de um menu fixo quebra o padrão esperado de navegação contínua.',
+          answer: 'Consistência e padrões',
         },
         {
           id: 17,
           description:
-            'User options for muting or blocking accounts are buried in submenus, reducing flexibility and efficiency.',
-          answer: 'flexibility',
+            'Problemas ao abrir o menu suspenso. O comportamento inesperado do menu não corresponde às expectativas dos usuários.',
+          answer: 'Compatibilidade entre o sistema e o mundo real',
         },
         {
           id: 18,
           description:
-            'Error messages during login do not guide users clearly to resolve the issue.',
-          answer: 'help',
+            'Sufoco publicitário. O excesso de anúncios interfere no conteúdo principal, prejudicando a experiência.',
+          answer: 'Estética e design minimalista',
         },
       ],
     },
-  ].slice(0, 6)); // Limit to one site for now
+  ].slice(0, 2)); // Limit to one site for now
 
   function increment() {
     points.value++
@@ -188,7 +194,7 @@ export const useGameStore = defineStore('points', () => {
       finalScore.value = points.value;
 
       points.value = 0;
-      router.push("/result");      
+      router.push("/result");
       return;
     }
 
@@ -233,5 +239,5 @@ export const useGameStore = defineStore('points', () => {
 
   }
 
-  return { points, increment, sites, randomSiteName, randomProblem, selectRandomProblem, heuristics, answer, finalScore}
+  return { points, increment, sites, randomSiteName, randomProblem, selectRandomProblem, heuristics, answer, finalScore }
 })
