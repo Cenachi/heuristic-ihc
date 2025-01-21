@@ -85,7 +85,7 @@ export const useGameStore = defineStore('points', () => {
       ],
     },
     {
-      name: 'Globo.com',
+      name: 'Globo',
       icon: '',
       problems: [
         {
@@ -180,7 +180,7 @@ export const useGameStore = defineStore('points', () => {
         },
       ],
     },
-  ].slice(0, 2)); // Limit to one site for now
+  ].slice(0, 6)); // Limit to one site for now
 
   function increment() {
     points.value++
@@ -221,15 +221,25 @@ export const useGameStore = defineStore('points', () => {
     console.log(`Selected problems count: ${selectedProblems.size}`);
   }
 
+  const feedbackMessage = ref({ visible: false, message: '', isCorrect: false });
+
   function answer(answer: string) {
     if (!randomProblem.value) return;
 
     if (randomProblem.value.answer === answer) {
       increment();
 
-      alert("Correct!");
+      feedbackMessage.value = {
+        visible: true,
+        message: 'Parabéns! Resposta correta!',
+        isCorrect: true,
+      };
     } else {
-      alert(`Incorrect! The answer is ${randomProblem.value.answer}`);
+      feedbackMessage.value = {
+        visible: true,
+        message: `Resposta incorreta! A resposta correta é: ${randomProblem.value.answer}`,
+        isCorrect: false,
+      };
     }
 
     // Mark the problem as selected
@@ -239,5 +249,5 @@ export const useGameStore = defineStore('points', () => {
 
   }
 
-  return { points, increment, sites, randomSiteName, randomProblem, selectRandomProblem, heuristics, answer, finalScore }
+  return { points, increment, sites, randomSiteName, randomProblem, selectRandomProblem, heuristics, answer, finalScore, feedbackMessage }
 })

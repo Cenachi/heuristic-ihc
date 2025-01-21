@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useGameStore, type Problem, type Site } from '../stores/points'
 import { ref, watchEffect } from 'vue';
+import FeedbackMessage from '../components/FeedbackMessage.vue';
 
+const feedbackMessage = useGameStore();
 const store = useGameStore(); // Game Data
 const open = ref(false);
 const time = ref(60);
@@ -51,14 +53,22 @@ function startTime() {
 }
 
 startTime();
+
 </script>
 
 <template>
+
+  <div>
+    <FeedbackMessage v-if="feedbackMessage.feedbackMessage.visible"
+      :isCorrect="feedbackMessage.feedbackMessage.isCorrect" :message="feedbackMessage.feedbackMessage.message"
+      @close="feedbackMessage.feedbackMessage.visible = false" />
+  </div>
+
   <main
     class="bg-gradient-to-br from-blue-500 via-indigo-500 to-purple-500 text-white h-screen flex flex-col items-center justify-center p-8">
     <div class="flex flex-col items-center gap-6 bg-white bg-opacity-10 p-8 rounded-lg shadow-lg w-full max-w-3xl">
       <h1 class="font-extrabold text-3xl md:text-4xl tracking-wider drop-shadow-lg">
-        Usability Homes
+        Usability Game
       </h1>
 
       <p class="text-lg md:text-xl font-medium drop-shadow-md">
@@ -71,14 +81,17 @@ startTime();
 
       <div class="flex gap-4 flex-wrap items-center justify-center w-full">
         <!-- Exibe os sites somente se nenhuma pergunta estiver aberta -->
+
         <template v-if="!open">
-          <div class="my-2 bg-white bg-opacity-20 p-4 rounded-lg shadow-lg w-full max-w-sm" v-for="site in store.sites"
-            :key="site.name">
-            <h2 v-if="open ? store.randomSiteName === site : true"
-              class="font-bold text-lg text-center cursor-pointer hover:bg-white hover:bg-opacity-30 transition-colors duration-300 p-2 rounded"
-              @click="openProblem(site)" :class="store.randomSiteName?.name === site.name ? 'text-red-500' : ''">
-              {{ site.name }}
-            </h2>
+          <div class="grid grid-cols-3 gap-3 items-center justify-center w-full">
+            <div class="bg-white bg-opacity-20 p-4 rounded-lg shadow-lg w-full max-w-sm"
+              v-for="site in store.sites" :key="site.name">
+              <h2 v-if="open ? store.randomSiteName === site : true"
+                class="font-bold text-lg text-center cursor-pointer hover:bg-white hover:bg-opacity-30 transition-colors duration-300 p-2 rounded"
+                @click="openProblem(site)" :class="store.randomSiteName?.name === site.name ? 'text-red-500' : ''">
+                {{ site.name }}
+              </h2>
+            </div>
           </div>
         </template>
 
